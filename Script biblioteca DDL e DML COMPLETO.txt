@@ -1,0 +1,117 @@
+Microsoft Windows [versão 10.0.18362.836]
+(c) 2019 Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Alojz>cd..
+
+C:\Users>cd..
+
+C:\>cd c:xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database biblioteca;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use biblioteca;
+Database changed   
+ 
+MariaDB [biblioteca]> create table livro(
+    ->  idlivro int primary key auto_increment,
+    ->  nomelivro varchar(255),
+    ->  autor varchar(255),
+    ->  generolivro varchar(255));
+Query OK, 0 rows affected (0.184 sec)
+
+MariaDB [biblioteca]>  create table bibliotecario(
+    -> idbibliotecario int primary key auto_increment,
+    -> nome varchar(255),
+    -> email varchar(255),
+    -> endereco varchar(255),
+    -> RG char(10) unique,
+    -> CPF char(14) unique,
+    -> datanascimento varchar(255),
+    -> tel char(11));
+Query OK, 0 rows affected (0.174 sec)
+
+MariaDB [biblioteca]> create table cliente(
+    -> idcliente int primary key auto_increment,
+    -> nome varchar(255),
+    -> email varchar(255),
+    -> endereco varchar(255),
+    -> RG char(10) unique,
+    -> CPF char(14) unique,
+    -> datanascimento varchar(255),
+    -> tel char(11));
+Query OK, 0 rows affected (0.151 sec)
+
+MariaDB [biblioteca]>  create table emprestimoedevolucao(
+    ->  idemprestimo int primary key auto_increment,
+    ->  dataemprestimo varchar(255),
+    ->  datadevolucao varchar(255),
+    ->  idcliente int,
+    ->  idbibliotecario int,
+    ->  idlivro int,
+    ->  foreign key(idcliente) references cliente(idcliente),
+    ->  foreign key(idbibliotecario) references bibliotecario(idbibliotecario),
+    ->  foreign key(idlivro) references livro(idlivro));
+Query OK, 0 rows affected (0.156 sec)
+
+MariaDB [biblioteca]> insert into livro (idlivro,nomelivro,autor,generolivro) values
+    -> ('111','A vida','Marcos','Drama'),
+    -> ('333','Jungle','Josef','Aventura'),
+    -> ('444','Sherlock Holmes','Arthur','Aventura'),
+    -> ('555','A menina que roubava livros','Markus','Drama'),
+    -> ('666','Percy Jackson','Rick','Aventura'),
+    -> ('777','A droga da obediencia','Pedro Bandeira','acao'),
+    -> ('888','O orfanato da srta. peregrine para criancas peculiares','Ranson Riggs','romance'),
+    -> ('999','O livro das feras','Dionisio Jacob','aventura'),
+    -> ('222','Learn and share in english','Amadeu Marques e Ana Carolina Cardoso','autodidatico'),
+    -> ('123','Filosofia e cotidiano','Jose Antonio Vasconcelos','autodidatico');
+Query OK, 10 rows affected (0.053 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [biblioteca]> insert into bibliotecario(idbibliotecario,nome,email,endereco,RG,CPF,datanascimento,tel) values
+    -> ('111','Joao','joao@gmail.com','Rua Almirantes Sao Paulo 144','11.111.111','111.111.111.22','12.01.1999','1234.5678'),
+    -> ('222','Rafael','rafa@gmail.com','Rua Almirantes Sao Paulo 665','22.222.222','222.222.222.33','13.08.2000','2345.6789'),
+    -> ('333','Joana','joana@gmail.com','Rua Jose Galo Sao Paulo 449','33.333.333','333.333.333.44','5.10.1989','3456.7891');
+Query OK, 3 rows affected, 6 warnings (0.046 sec)
+Records: 3  Duplicates: 0  Warnings: 6
+
+MariaDB [biblioteca]> insert into cliente(idcliente,nome,email,endereco,RG,CPF,datanascimento,tel) values
+    -> ('1','Ana Clara','ana@gmail.com','Rua Dom Pedro Sao Paulo 199','44.444.444','444.444.444.55','04.06.2006','7583.9057'),
+    -> ('2','Juan','j@gmail.com','Rua Porto Geral Sao Paulo 754','55.555.555','555.555.555.66','29.05.1970','5439.4532'),
+    -> ('3','Simone','si@hotmail.com','Rua Boa Vista Sao Paulo 894','66.666.666','666.666.666.77','30.08.1970','7869.9732'),
+    -> ('4','Nelson','nelson@hotmail.com','Rua Augusta Sao Paulo 288','77.777.777','777.777.777.88','29.07.1992','8432.1936'),
+    -> ('5','Emeson','em@hotmail.com','Rua Luis Coelho Sao Paulo 195','88.888.888','888.888.888.99','16.04.2001','7424.9241'),
+    -> ('6','Eliana','eliana@gmail.com','Rua Sete de Setembro Sao Paulo 854','99.999.999','999.999.999.11','13.07.1995','6238.9267'),
+    -> ('7','Wanderley','wanderley@hotmail.com','Rua Teodoro Sampaio Sao Paulo 354','12.234.456','553.334.667.89','17.07.1989','3867.2609'),
+    -> ('8','Cristiane','cris@gmail.com','Rua Brasil Sao Paulo 298','23.345.567','665.557.332.19','25.06.1969','1945.3859'),
+    -> ('9','Maria','maria@hotmail.com','Rua Conde de Sao Joaquim Sao Paulo 356','34.456.678','634.221.687.34','04.06.1972','2865.3457'),
+    -> ('10','Thiago','thiago@hotmail.com','Rua Chaplyn Sao Paulo 267','45.687.341','476.689.324.15','26.09.1981','2956.4387');
+Query OK, 10 rows affected, 20 warnings (0.051 sec)
+Records: 10  Duplicates: 0  Warnings: 20
+
+MariaDB [biblioteca]> insert into emprestimoedevolucao (idemprestimo,dataemprestimo,datadevolucao,idcliente,idbibliotecario,idlivro) values
+    -> ('112','23.06.2020','23.07.2020','2','222','555'),
+    -> ('113','12.07.2020','12.08.2020','8','111','333'),
+    -> ('114','14.07.2020','14.08.2020','5','333','888'),
+    -> ('115','14.07.2020','24.07.2020','6','111','666'),
+    -> ('116','17.07.2020','17.08.2020','3','222','123'),
+    -> ('117','20.07.2020','10.08.2020','7','222','999'),
+    -> ('118','20.07.2020','20.08.2020','1','333','222'),
+    -> ('119','21.07.2020','21.08.2020','4','111','444'),
+    -> ('120','25.07.2020','09.08.2020','10','111','777'),
+    -> ('121','26.07.2020','20.08.2020','9','111','111');
+Query OK, 10 rows affected (0.101 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [biblioteca]>
+
+Script Biblioteca DDL e DML, feito no CMD
