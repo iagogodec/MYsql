@@ -1,0 +1,123 @@
+Microsoft Windows [versão 10.0.18362.836]
+(c) 2019 Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Alojz>cd..
+
+C:\Users>cd..
+
+C:\>cd c:xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 458
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use veterinaria;
+Database changed
+MariaDB [veterinaria]> show tables;
++-----------------------+
+| Tables_in_veterinaria |
++-----------------------+
+| animal                |
+| dono                  |
++-----------------------+
+2 rows in set (0.000 sec)
+
+MariaDB [veterinaria]> describe animal;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| idanimal | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome     | varchar(255) | YES  |     | NULL    |                |
+| raca     | varchar(255) | YES  |     | NULL    |                |
+| peso     | decimal(7,2) | YES  |     | NULL    |                |
+| dono     | int(11)      | YES  | MUL | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.003 sec)
+
+MariaDB [veterinaria]> describe dono;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| coddono  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nome     | varchar(255) | YES  |     | NULL    |                |
+| cpf      | varchar(20)  | YES  | UNI | NULL    |                |
+| telefone | varchar(20)  | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.002 sec)
+
+MariaDB [veterinaria]> insert into dono (nome,cpf,telefone) VALUES
+    -> ('Augusto','234.345.345.45','11-34567-4444'),
+    -> ('Rafaela','234.234.234.33','11-88888-9999'),
+    -> ('Clovis','333.444.555-76','11-33333-4444');
+Query OK, 3 rows affected (0.036 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> insert into dono values
+    -> ('','Vitoria','444.444.444-99','11-99999-9999'),
+    -> ('','Ricardo','666.444.444-99','11-77777-9999');
+Query OK, 2 rows affected, 2 warnings (0.046 sec)
+Records: 2  Duplicates: 0  Warnings: 2
+
+MariaDB [veterinaria]> insert into animal(nome,peso,raca,dono) VALUES
+    -> ('Toto',20.5,'Beagle', 3),
+    -> ('Athos',50,'Labrador', 1),
+    -> ('Eros',49,'Labrador', 1),
+    -> ('Joca',13,'Vira Lata', 2),
+    -> ('Kiara',2.3,'Vira Lata', 1),
+    -> ('Sansão',15,'Schnauzer', 4),
+    -> ('Biscoito',4,'Siamês', 5);
+Query OK, 7 rows affected (0.077 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> alter table animal add column tipoAnimal varchar(255);
+Query OK, 0 rows affected (0.116 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Cachorro' where idanimal= 1;
+Query OK, 1 row affected (0.037 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Cachorro' where idanimal= 2;
+Query OK, 1 row affected (0.035 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Cachorro' where idanimal= 3;
+Query OK, 1 row affected (0.040 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Cachorro' where idanimal= 4;
+Query OK, 1 row affected (0.070 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Cachorro' where idanimal= 6;
+Query OK, 1 row affected (0.037 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Gato' where idanimal= 5;
+Query OK, 1 row affected (0.035 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set tipoAnimal='Gato' where idanimal= 7;
+Query OK, 1 row affected (0.037 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set peso = 3.5 where name = "Kiara";
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+MariaDB [veterinaria]> update animal set peso = 3.5 where nome = "Kiara";
+Query OK, 1 row affected (0.031 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [veterinaria]> update animal set raca = "Sem Raça Definida" where raca ="Vira Lata";
+Query OK, 2 rows affected (0.035 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [veterinaria]> delete from animal where nome="Sansão";
+Query OK, 1 row affected (0.050 sec)
+
+MariaDB [veterinaria]>
+comandos DDL e DML, feito no CMD.

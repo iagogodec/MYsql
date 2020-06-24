@@ -1,0 +1,72 @@
+Microsoft Windows [versão 10.0.18362.778]
+(c) 2019 Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Alojz>cd..
+
+C:\Users>cd..
+
+C:\>cd c:xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 30
+Server version: 10.4.11-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database farmacia;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| farmacia           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
+| veterinario        |
++--------------------+
+7 rows in set (0.000 sec)
+
+MariaDB [(none)]> use farmacia;
+Database changed
+MariaDB [farmacia]> create table remedio(
+    -> idremedio int primary key auto_increment,
+    -> tipo varchar(255),
+    -> receita varchar(255),
+    -> preco varchar(255));
+Query OK, 0 rows affected (0.171 sec)
+
+MariaDB [farmacia]> show tables
+    -> ;
++--------------------+
+| Tables_in_farmacia |
++--------------------+
+| remedio            |
++--------------------+
+1 row in set (0.000 sec)
+
+MariaDB [farmacia]> describe remedio;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| idremedio | int(11)      | NO   | PRI | NULL    | auto_increment |
+| tipo      | varchar(255) | YES  |     | NULL    |                |
+| receita   | varchar(255) | YES  |     | NULL    |                |
+| preco     | varchar(255) | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.003 sec)
+
+MariaDB [farmacia]> drop table remedio;
+Query OK, 0 rows affected (0.125 sec)
+
+MariaDB [farmacia]> drop database farmacia;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [(none)]>
+comandos DDL no CMD.
